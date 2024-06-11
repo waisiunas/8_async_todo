@@ -7,7 +7,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-item active">
                 <a class="sidebar-link" href="./dashboard.php">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Tasks</span>
                 </a>
             </li>
         </ul>

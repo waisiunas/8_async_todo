@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
+<?php
 $title = "Login";
 require_once "./partials/head.php";
 ?>
@@ -101,7 +101,6 @@ require_once "./partials/head.php";
     </main>
 
     <script src="./template/js/app.js"></script>
-
 </body>
 
 </html>
