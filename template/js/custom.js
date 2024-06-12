@@ -32,8 +32,6 @@ addFormElement.addEventListener("submit", async function (e) {
 
         const result = await response.json();
 
-        console.log(result);
-
         if (result.taskError) {
             taskInputElement.classList.add("is-invalid");
             alertElement.innerHTML = alert(result.taskError);
@@ -73,6 +71,54 @@ async function showTasks() {
         tasksElement.innerHTML = rows;
     } else {
         tasksElement.innerHTML = `<div class="alert alert-info m-0">No record found!</div>`;
+    }
+}
+
+async function editTask(id) {
+    const editElement = document.querySelector(`#edit-${id}`);
+    const taskElement = document.querySelector(`#task-${id}`);
+
+    let taskValue = taskElement.value;
+
+    if (editElement.innerText == "Edit") {
+        editElement.innerText = "Save";
+        taskElement.removeAttribute("readonly");
+        taskElement.focus();
+        taskElement.setSelectionRange(taskValue.length, taskValue.length);
+    } else {
+        if (taskValue == "" || taskValue === undefined) {
+            alertElement.innerHTML = alert("Task is required!");
+            taskElement.classList.add("is-invalid");
+        } else {
+            const data = {
+                task: taskValue,
+                id: id,
+                submit: 1,
+            };
+
+            const response = await fetch("./api/edit-task.php", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+
+            if (result.taskError) {
+                alertElement.innerHTML = alert(result.taskError);
+                taskElement.classList.add("is-invalid");
+            } else if (result.success) {
+                alertElement.innerHTML = alert(result.success, "success");
+                editElement.innerText = "Edit";
+                taskElement.setAttribute("readonly", true);
+            } else if (result.failure) {
+                alertElement.innerHTML = alert(result.failure);
+            } else {
+                alertElement.innerHTML = alert();
+            }
+        }
     }
 }
 
